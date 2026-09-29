@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: warehouse-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+kafka:
+  topic:
+    measurement: warehouse.measurement
+
+warehouse:
+  sensors:
+    - type: TEMPERATURE
+      port: 3344
+    - type: HUMIDITY
+      port: 3355
+
+logging:
+  level:
+    com.warehouse.monitoring: INFO
